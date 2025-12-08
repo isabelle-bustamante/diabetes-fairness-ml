@@ -37,6 +37,23 @@ class MLP(nn.Module):
     def forward(self, x):
         return self.model(x)
 
+class MLP_Realistic(nn.Module):
+    def __init__(self, input_dim):
+        super().__init__()
+        self.model = nn.Sequential(
+            nn.Linear(input_dim, 64),
+            nn.ReLU(),
+            nn.Linear(64, 64),
+            nn.ReLU(),
+            nn.Linear(64, 32),
+            nn.ReLU(),
+            nn.Linear(32, 2)
+        )
+
+    def forward(self, x):
+        return self.model(x)
+
+
 
 # This function was adapted from Deep Learning by Prof. Paolo Favaro, University of Bern
 
@@ -126,15 +143,16 @@ def plot(train_losses, val_losses, train_accuracies, val_accuracies, title):
     plt.legend(['train_loss', 'val_loss'])
     plt.xlabel('epoch')
     plt.ylabel('loss value')
-    plt.title('{}: Train/val loss'.format(title))
+    plt.title(f'{title}: Train/val loss')
 
     plt.figure()
     plt.plot(np.arange(len(train_accuracies)), train_accuracies)
     plt.plot(np.arange(len(val_accuracies)), val_accuracies)
     plt.legend(['train_acc', 'val_acc'])
     plt.xlabel('epoch')
-    plt.ylabel('accuracy')
-    plt.title('{}: Train/val accuracy'.format(title))
+    plt.ylabel('accuracy (%)')
+    plt.title(f'{title}: Train/val accuracy')
+
 
 
 
@@ -145,8 +163,10 @@ def train_mlp_model(
     hidden_dim=32,
     n_epochs=20,
     lr=0.001,
+    model_class=MLP,       # <-- ADD THIS
     plot_training=True
 ):
+
     """
     High-level wrapper that:
     - converts numpy → torch tensors
@@ -167,7 +187,7 @@ def train_mlp_model(
     test_loader  = DataLoader(TensorDataset(X_test_t, y_test_t), batch_size=32, shuffle=False)
 
     # Build model
-    model = MLP(input_dim=input_dim, hidden_dim=hidden_dim).to(device)
+    model = model_class(input_dim=input_dim).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     loss_fn = nn.CrossEntropyLoss()
 

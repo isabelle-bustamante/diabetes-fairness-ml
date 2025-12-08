@@ -4,7 +4,7 @@ import pandas as pd
 
 def simulate_measurement_bias_world(n_samples: int = 10000, seed: int | None = None) -> pd.DataFrame:
     """
-    Simulate a world with FAIR underlying physiology but BIASED measurements.
+    Simulate a world with fair underlying physiology but biased measurements.
 
     - diabetes_label is still the true disease status
     - race and gender affect how glucose/hba1c are measured (biased sensors)
@@ -22,7 +22,7 @@ def simulate_measurement_bias_world(n_samples: int = 10000, seed: int | None = N
     if seed is not None:
         np.random.seed(seed)
 
-    # Demographics (same as fair world)
+    # Demographics
     race = np.random.choice([0, 1, 2], size=n_samples, p=[0.6, 0.25, 0.15])
     gender = np.random.choice([0, 1], size=n_samples)
     age = np.random.normal(50, 10, n_samples).clip(18, 90)
