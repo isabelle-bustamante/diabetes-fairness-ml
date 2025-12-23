@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-def simulate_realistic_world_simple(n_samples=10000, seed=None):
+def simulate_realistic_world(n_samples=10000, seed=None):
 
     if seed is not None:
         np.random.seed(seed)
