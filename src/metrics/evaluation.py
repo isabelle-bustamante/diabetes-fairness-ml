@@ -36,7 +36,6 @@ def evaluate_model(y_true, y_pred, y_prob, sens_test):
         tpr = recall_score(y_true_g, y_pred_g, zero_division=0)
         fnr = 1 - tpr
         precision_g = precision_score(y_true_g, y_pred_g, zero_division=0)
-        calib = brier_score_loss(y_true_g, y_prob_g)
 
         gender_metrics[g] = {
             "TPR": tpr,
