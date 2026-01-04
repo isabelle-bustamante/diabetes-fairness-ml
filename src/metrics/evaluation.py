@@ -14,7 +14,6 @@ def evaluate_model(y_true, y_pred, y_prob, sens_test):
       - Group TPR (recall)
       - Group FNR
       - Group precision
-      - EO gaps
     """
 
     results = {}
