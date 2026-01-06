@@ -4,6 +4,21 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 import matplotlib.pyplot as plt
 
+import random
+
+SEED = 42
+
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+
+# For Apple MPS / CUDA safety
+if torch.backends.mps.is_available():
+    torch.mps.manual_seed(SEED)
+
+if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(SEED)
+
 device = "mps" if torch.backends.mps.is_available() else "cpu"
 
 

@@ -24,6 +24,18 @@ __all__ = [
 
 
 class MLP(nn.Module):
+    """
+    A simple Multi-Layer Perceptron (MLP) class.
+
+    This class implements a fully connected feedforward neural network with one
+    hidden layer and ReLU activation, designed for binary classification tasks.
+    It takes in an input of specified dimensions, maps it through a hidden layer
+    with a configurable number of units, and outputs logits for two binary classes.
+
+    :ivar model: The sequential neural network model composed of linear layers
+        and a ReLU activation function.
+    :type model: torch.nn.Sequential
+    """
     def __init__(self, input_dim, hidden_dim=32):
         super().__init__()
         self.model = nn.Sequential(
@@ -45,6 +57,25 @@ def train_mlp_model(
     n_epochs=30,
     lr=0.001
 ):
+    """
+    Train and evaluate a Multi-Layer Perceptron (MLP) model using the given data.
+
+    This function takes training and test data, initializes an MLP with specified
+    hyperparameters, trains the model, and evaluates it. It returns a dictionary
+    containing the trained model, the accuracy score, predicted labels, and predicted
+    probabilities for the test data.
+
+    :param X_train_s: Training features as a standard scaled numpy array
+    :param y_train: Training target as a pandas Series
+    :param X_test_s: Test features as a standard scaled numpy array
+    :param y_test: Test target as a pandas Series
+    :param input_dim: Input dimension size for the MLP model
+    :param hidden_dim: Hidden layer dimension size for the MLP model (default: 32)
+    :param n_epochs: Number of epochs for model training (default: 30)
+    :param lr: Learning rate for the optimizer (default: 0.001)
+    :return: Dictionary containing the trained model, accuracy score, predicted
+             labels, and predicted probabilities for the test data
+    """
     # tensors
     X_train_t = torch.tensor(X_train_s, dtype=torch.float32).to(device)
     y_train_t = torch.tensor(y_train.values, dtype=torch.long).to(device)
