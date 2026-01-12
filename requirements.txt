@@ -1,8 +1,6 @@
+Python 3.9+
 numpy
 pandas
 scikit-learn
 matplotlib
-seaborn
-jupyter
 torch
-torchvision
